@@ -1,0 +1,49 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+ <PropertyGroup>
+    <Description>.NET implementation of CSS Syntax Level 3</Description>
+    <AssemblyName>Dotcss</AssemblyName>
+    <AssemblyTitle>Css .NET</AssemblyTitle>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
+    <PackageId>Dotcss</PackageId>
+    <PackageTags>css, scss, less, parser</PackageTags>
+    <PackageProjectUrl>https://github.com/Xicy/css-dotnet</PackageProjectUrl>
+    <PackageLicenseExpression>BSD-3-Clause</PackageLicenseExpression>
+    <VersionPrefix>1.0.0</VersionPrefix>
+
+    <LangVersion>preview</LangVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);1591</NoWarn>
+
+    <DefineConstants Condition=" '$(TargetFramework)' == 'netstandard2.1'">$(DefineConstants);HAS_SPAN_PARSE</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="all" />
+    <PackageReference Include="System.Memory" Version="4.5.4" Condition=" '$(TargetFramework)' != 'netstandard2.1'" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Remove="System.Net.Http" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Shared\Compatibility\IsExternalInit.cs" Link="Compatibility\IsExternalInit.cs" />
+    <Compile Include="..\Shared\Compatibility\NullableAttributes.cs" Link="Compatibility\NullableAttributes.cs" />
+    <Compile Include="..\Shared\Compatibility\SkipLocalsInitAttribute.cs" Link="Compatibility\SkipLocalsInitAttribute.cs" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <EmitCompilerGeneratedFiles>false</EmitCompilerGeneratedFiles>
+    <CompilerGeneratedFilesOutputPath>Generated</CompilerGeneratedFilesOutputPath>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(EmitCompilerGeneratedFiles)' == 'true'">
+    <Compile Remove="$(CompilerGeneratedFilesOutputPath)/**/*.cs" />
+    <None Include="$(CompilerGeneratedFilesOutputPath)/**/*.cs" />
+  </ItemGroup>
+
+</Project>
